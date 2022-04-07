@@ -3,6 +3,7 @@
 #include <string.h>
 #include <time.h>
 
+// Estructuras
 struct Producto{
     int ProductoID;
     int Cantidad;
@@ -17,6 +18,10 @@ struct Cliente{
     Producto *Productos;
 } typedef Cliente;
 
+// Declaración de funciones
+float calcularCosto(float costoUnitario, int cantidad);
+
+// Función principal
 int main(){
     int cantClientes, numAux;
     char *TiposProductos[] = {"Galletas", "Snack", "Cigarrillos", "Caramelos", "Bebidas"};
@@ -76,11 +81,15 @@ int main(){
             printf("Cantidad del producto: %d\n", (((listaClientes + i)->Productos) + j)->Cantidad);
             printf("Tipo de producto: %s\n", (((listaClientes + i)->Productos) + j)->TipoProducto);
             printf("Precio del producto: %.2f\n", (((listaClientes + i)->Productos) + j)->PrecioUnitario);
-            costoTotal += (((listaClientes + i)->Productos) + j)->PrecioUnitario * (((listaClientes + i)->Productos) + j)->Cantidad;
+            costoTotal += calcularCosto((((listaClientes + i)->Productos) + j)->PrecioUnitario, (((listaClientes + i)->Productos) + j)->Cantidad);
         }
 
         printf("Costo total de productos del cliente: %.2f\n", costoTotal);
     }
 
     return 0;
+}
+
+float calcularCosto(float costoUnitario, int cantidad){
+    return costoUnitario * cantidad;
 }
