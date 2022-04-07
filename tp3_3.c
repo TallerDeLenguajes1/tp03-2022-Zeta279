@@ -60,11 +60,11 @@ int main(){
             numAux = rand() % 5;
             (((listaClientes + i)->Productos) + j)->TipoProducto = (char *) malloc(strlen(TiposProductos[numAux]));
             strcpy((((listaClientes + i)->Productos) + j)->TipoProducto, TiposProductos[numAux]);
-            (((listaClientes + i)->Productos) + j)->PrecioUnitario = 10 + rand() % 91;
+            (((listaClientes + i)->Productos) + j)->PrecioUnitario = 10 + rand() % 91 + ((float)(rand() % 4) / 100 * 25);
         }
     }
 
-    printf("Mostrando los datos: ");
+    printf("Mostrando los datos: \n");
 
     for(int i = 0; i < cantClientes; i++){
         printf("Cliente %d\n\n", i + 1);
@@ -82,10 +82,19 @@ int main(){
             printf("Tipo de producto: %s\n", (((listaClientes + i)->Productos) + j)->TipoProducto);
             printf("Precio del producto: %.2f\n", (((listaClientes + i)->Productos) + j)->PrecioUnitario);
             costoTotal += calcularCosto((((listaClientes + i)->Productos) + j)->PrecioUnitario, (((listaClientes + i)->Productos) + j)->Cantidad);
+
+            // Liberar memoria
+            free((((listaClientes + i)->Productos) + j)->TipoProducto);
         }
 
         printf("Costo total de productos del cliente: %.2f\n", costoTotal);
+
+        // Liberar memoria
+        free((listaClientes + i)->Productos);
     }
+
+    // Liberar memoria
+    free(listaClientes);
 
     return 0;
 }
